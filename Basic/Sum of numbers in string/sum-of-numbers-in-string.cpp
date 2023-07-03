@@ -16,18 +16,24 @@ class Solution
     {
     	
     	// Your code here
-    	int sum = 0;
-        int n = str.length();
-        for(int i = 0;i<n;i++){
-            int num = 0;
-            while(str[i]-'0'>=0 and str[i]-'0'<=9){
-                num = num*10 + str[i]-'0';
-                i++;
-            }
-            sum+= num;
-        }
-        return sum;
-        
+    	string s ="";
+    	int ans=0;
+    	for(int i=0;i<str.length();i++){
+    	    if(str[i]>='0' && str[i]<='9'){
+    	        s += str[i];
+    	    }
+    	    else{
+    	        if(s!="")
+    	         ans += stoi(s);//stoi() string to integer
+    	         s="";
+    	    }
+    	}
+    	
+    	if(s!=""){
+    	    ans += stoi(s);
+    	    s="";
+    	}
+        return ans;
     }
 };
 
