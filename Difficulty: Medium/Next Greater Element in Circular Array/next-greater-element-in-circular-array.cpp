@@ -1,17 +1,30 @@
 class Solution {
   public:
-    vector<int> nextLargerElement(vector<int> &arr) {
+    vector<int> nextGreater(vector<int> &arr) {
         // code here
-         int n=arr.size();
-        vector<int> nge(n,-1);
-        stack<int> stk;
-        for(int i=2*n-1;i>=0;i--){
-            while(!stk.empty() && stk.top()<=arr[i%n]){
-                stk.pop();
+        int idx = 0;
+        int n = arr.size();
+        
+        for(int i = 0;i<n;i++){
+            if(arr[i]>arr[idx]){
+                idx = i;
             }
-            if(i<n && !stk.empty()) nge[i]=stk.top();
-            stk.push(arr[i%n]);
         }
-        return nge;
+        
+        vector<int> sol(arr.size(),-1);
+        stack<int> st;
+        
+        // We start iterating just after the largest element in the 
+        // circular fashion upto the largest element
+        
+        for(int i = idx+1;i<=idx+n;i++){
+            while((!st.empty()) and (arr[i%n]>arr[st.top()])){
+                sol[st.top()] = arr[i%n];
+                st.pop();
+            }
+            st.push(i%n);
+        }
+        
+        return sol;
     }
 };
